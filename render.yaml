@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: whatsapp-chat-analyzer
+    env: python
+    buildCommand: pip install -r requirements.txt && python -m textblob.download_corpora
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MAX_UPLOAD_MB
+        value: "10"
+      - key: SESSION_EXPIRY_MINUTES
+        value: "60"
